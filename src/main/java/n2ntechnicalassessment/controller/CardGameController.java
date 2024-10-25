@@ -1,6 +1,8 @@
 package n2ntechnicalassessment.controller;
 
 import lombok.RequiredArgsConstructor;
+import n2ntechnicalassessment.dto.AllPlayerRequestDto;
+import n2ntechnicalassessment.dto.AllPlayerResponseDto;
 import n2ntechnicalassessment.dto.CardsDto;
 import n2ntechnicalassessment.dto.ResponseDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -8,9 +10,7 @@ import n2ntechnicalassessment.service.CardGameService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,18 +26,17 @@ public class CardGameController extends BaseController {
     private final CardGameService cardGameService;
 
     @GetMapping("/cards/all")
-    public ResponseDTO<List<CardsDto>> getAllCardsInDeck() {
+    public ResponseDTO<List<CardsDto>> getAllCardsList() {
         return createResponse(HttpStatus.OK, cardGameService.getAllCardsList());
     }
 
-//    @GetMapping("/phoneModel/{phoneModels}/{attributes}")
-//    public ResponseDTO<List<String>> getAllPhoneModelandAttributes(@PathVariable String phoneModels, @PathVariable String attributes) {
-//        return createResponse(HttpStatus.OK, bookStoreService.getAllPhoneModelandAttributes(phoneModels, attributes));
-//    }
-//
-//    @PostMapping("/{customerIdNumber}")
-//    public ResponseDTO<List<CustomerResDTO>> getCustomerDetails(@PathVariable String customerIdNumber) {
-//        return createResponse(HttpStatus.OK, bookStoreService.getCustomerDetails(customerIdNumber));
-//    }
+    @PostMapping("/{onePlayerNumber}")
+    public ResponseDTO<List<CardsDto>> getOnePlayerCard(@PathVariable int onePlayerNumber) {
+        return createResponse(HttpStatus.OK, cardGameService.getPlayerCard(onePlayerNumber));
+    }
 
+    @PostMapping("/allPlayers")
+    public ResponseDTO<List<AllPlayerResponseDto>> getAllPlayerCard(@RequestBody List<AllPlayerRequestDto> allPlayers) {
+        return createResponse(HttpStatus.OK, cardGameService.getAllPlayerCardAndWinner(allPlayers));
+    }
 }
