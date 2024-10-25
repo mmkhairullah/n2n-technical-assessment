@@ -1,58 +1,29 @@
-Etiqa - Technial Assessment - Java Developer - January 2024
+N2N - Technial Assessment - Java Developer - October 2024
 
-1. Task : API must be Restful JSON. API must demonstrate POST, GET, PUT, and DELETE
+Swagger URL : http://localhost:{{portNo}}/n2n/swagger-ui/index.html#/
 
-@GetMapping("bookstore/customer/all") -- get all customer with all books they bought with payload
-- Parameter / payload : none
+1. Endpoint -> @GetMapping -> http://localhost:{{portNo}}/n2n/cardgame/cards/all
+     - Request Parameter : none
+3. Endpoint -> @PostMapping -> http://localhost:{{portNo}}/n2n/cardgame/cards/{onePlayerNumber}
+     - Request Parameter : 1 / 2 / 3 / 4
+5. Endpoint -> @PostMapping -> http://localhost:{{portNo}}/n2n/cardgame/cards/allPlayers
+     -  Request Parameter
+         [
+            {
+              "allPlayersCards": [
+                  {
+                    "playerNumber":1
+                  },
+                  {
+                    "playerNumber":2
+                  },
+                  {
+                    "playerNumber":3
+                  },
+                  {
+                    "playerNumber":4
+                  }
+                ]
+            }
+        ]
 
-@PostMapping("bookstore/{customerIdNumber}") -- get customer details based on customer id
-- Parameter / payload :
-  1. customerIdNumber 
-
-@PostMapping("bookstore/add/customer") -- add new customer details with payload
-- Parameter / payload :
-  1. {
-      "idType": "string",
-      "idNumber": "string",
-      "firstName": "string",
-      "lastName": "string",
-      "email": "string",
-      "mobileNumber": "string",
-      "officeNumber": "string",
-      "familyMember": 0,
-      "dateJoined": "2024-01-10T09:25:08.667Z",
-      "productsId": 0,
-      "productResDTO": {
-        "bookTitle": "string",
-        "bookPrice": "string",
-        "bookQuantity": 0
-      }
-    }
-@PutMapping("bookstore/update/{id}") -- update customer details with payload
-- Parameter / payload :
-  1. Id
-  2. {
-      "idType": "string",
-      "idNumber": "string",
-      "firstName": "string",
-      "lastName": "string",
-      "email": "string",
-      "mobileNumber": "string",
-      "officeNumber": "string",
-      "familyMember": 0,
-      "dateJoined": "2024-01-10T09:25:08.667Z",
-      "productsId": 0,
-      "productResDTO": {
-        "bookTitle": "string",
-        "bookPrice": "string",
-        "bookQuantity": 0
-      }
-    }
-
-@DeleteMapping("bookstore/delete/customer/{customerIdNumber}") -- delete customer using customer id number from db
-- Parameter / payload :
-  1. customerIdNumber 
-
-@DeleteMapping("bookstore/delete/id/{id}") --delete customer using id from db
-- Parameter / payload :
-  1. id
