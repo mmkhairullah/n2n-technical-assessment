@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: n2ntechnicalassessment.BookstoreApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 37.66 s -- in n2ntechnicalassessment.BookstoreApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.146 s -- in n2ntechnicalassessment.BookstoreApplicationTests
