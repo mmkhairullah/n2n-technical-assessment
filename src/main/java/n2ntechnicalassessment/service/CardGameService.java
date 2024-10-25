@@ -80,6 +80,7 @@ public class CardGameService {
     public List<CardsDto> winnerCondition(List<AllPlayerResponseDto> allPlayersCardResults) {
         Map<Integer, List<CardsDto>> playerCardsMap = new HashMap<>();
 
+        // Collect all player cards
         allPlayersCardResults.forEach(playerResponse -> {
             List<CardsDto> playerCards = playerResponse.getAllPlayersCards();
             if (playerCards != null) {
@@ -92,6 +93,7 @@ public class CardGameService {
         Map<Integer, Integer> playerWinningCounts = new HashMap<>();
         Map<Integer, String> playerHighestCard = new HashMap<>();
 
+        // Count cards by alphanumeric part for each player
         for (Map.Entry<Integer, List<CardsDto>> entry : playerCardsMap.entrySet()) {
             int playerNumber = entry.getKey();
             log.info("playerNumber : " + playerNumber);
@@ -107,10 +109,12 @@ public class CardGameService {
                 cardCount.put(alphanumericPart, cardCount.getOrDefault(alphanumericPart, 0L) + 1);
             }
 
+            // Find the maximum count of any alphanumeric part
             long maxCount = cardCount.values().stream().max(Long::compare).orElse(0L);
             log.info("maxCount = : " + maxCount);
             playerWinningCounts.put(playerNumber, (int) maxCount);
 
+            // Determine best card for tiebreaker
             List<String> highestCards = cardCount.entrySet().stream()
                     .filter(e -> e.getValue() == maxCount)
                     .map(Map.Entry::getKey)
@@ -124,16 +128,13 @@ public class CardGameService {
         int winningPlayer = -1;
         int maxWinningCount = -1;
 
+        // Determine the winning player based on counts and highest card
         for (Map.Entry<Integer, Integer> entry : playerWinningCounts.entrySet()) {
             int count = entry.getValue();
-            log.info("count = : " + count);
 
-            if (count > maxWinningCount ||
-                    (count == maxWinningCount &&
-                            (winningPlayer == -1 || compareHighestCard(playerHighestCard.get(entry.getKey()),
-                                    playerHighestCard.get(winningPlayer)) > 0))) {
-                maxWinningCount = count;
-                winningPlayer = entry.getKey();
+            if (count > maxWinningCount || (count == maxWinningCount && (winningPlayer == -1 || compareHighestCard(playerHighestCard.get(entry.getKey()), playerHighestCard.get(winningPlayer)) > 0))) {
+                maxWinningCount = entry.getKey();
+                winningPlayer = count;
                 log.info("winningPlayer = : " + winningPlayer);
                 log.info("maxWinningCount = : " + maxWinningCount);
             }
@@ -172,7 +173,6 @@ public class CardGameService {
 
     private int getSymbolValue(char symbol) {
         log.info("symbol : " + symbol);
-
         switch (symbol) {
             case '*': return 4;
             case '^': return 3;
